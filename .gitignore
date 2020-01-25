@@ -34,13 +34,9 @@ override.tf.json
 # Node ignores
 node_modules
 
-# Lambda source code, separate BitBucket repo
-node10
-
 # Docker source code, separate GitHub repo
 docker
 
 # distribution files
-env/dev/dist/kindi/*
+env/dev/dist/example/*
 env/dev/dist/layer/*
-env/dev/key/*
