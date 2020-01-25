@@ -1,0 +1,17 @@
+{
+    "name": "example-node",
+    "version": "1.0.0",
+    "description": "Example Lambda source code",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "Rolf Streefkerk",
+    "license": "Apache-2.0",
+    "dependencies": {
+        "middy": "^0.25.0"
+    },
+    "devDependencies": {
+        "aws-sdk": "^2.435.0"
+    }
+}
