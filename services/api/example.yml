@@ -1,0 +1,457 @@
+openapi: 3.0.1
+info:
+  title: openapi-example
+  version: 0.3.0
+  description: "<p>This is an example OpenAPI specification document for our identity management solution</p>"
+  termsOfService: "http://example.com/tos"
+  contact:
+    email: "example@example.com"
+servers:
+- url: http://example.com/
+  variables:
+    basePath:
+      default: /v1
+paths:
+  /identity/authenticate:
+    post:
+      operationId: identityAuthenticate
+      description: Authenticate user (either login, or continue session)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Authenticate'
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${lambda_identity_arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis: ${lambda_identity_timeout}
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Identity
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /identity/register:
+    post:
+      operationId: identityRegister
+      description: Register new Business user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${lambda_identity_arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis: ${lambda_identity_timeout}
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Identity
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /identity/reset:
+    post:
+      operationId: identityReset
+      description: 1) To request, only send username, 2) to finalize reset; send username, password and confirmation code.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reset'
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${lambda_identity_arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis: ${lambda_identity_timeout}
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Identity
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /identity/verify:
+    post:
+      operationId: identityVerify
+      description: Verify a registered user via a unique code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Verify'
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${lambda_identity_arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis: ${lambda_identity_timeout}
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - Identity
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+  /user:
+    get:
+      operationId: getUser
+      description: get User details by ID
+      parameters:
+        - $ref: '#/components/parameters/userID'
+      security:
+      - example-CognitoUserPoolAuthorizer: []
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${lambda_user_arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis: ${lambda_user_timeout}
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/user'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - User
+    options:
+      responses:
+        200:
+          $ref: '#/components/responses/cors'
+        400:
+          $ref: '#/components/responses/cors'
+        500:
+          $ref: '#/components/responses/cors'
+      x-amazon-apigateway-integration:
+        responses:
+          default:
+            statusCode: "200"
+            responseParameters:
+              method.response.header.Access-Control-Max-Age: "'7200'"
+              method.response.header.Access-Control-Allow-Methods: "'OPTIONS,HEAD,GET,POST,PUT,PATCH,DELETE'"
+              method.response.header.Access-Control-Allow-Headers: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+              method.response.header.Access-Control-Allow-Origin: "'*'"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        requestTemplates:
+          application/json: "{ \"statusCode\": 200 }"
+        type: "mock"
+components:
+  parameters:
+    userID:
+      description: User identifier
+      in: query
+      name: userID
+      schema:
+        type: string
+      required: true
+  schemas:
+    Authenticate:
+      title: Authenticate
+      type: object
+      properties:
+        username:
+          type: string
+          example: "userTest"
+        password:
+          type: string
+          example: "123$SFF22l"
+        refreshToken:
+          type: string
+          example: "sdfasjdfsfj43242342fsalkfjflksak23424"
+    Register:
+      title: Register
+      type: object
+      description: Only an Organization can register, this User is its representative
+      properties:
+        email:
+          type: string
+          example: "user@business.com"
+        password:
+          type: string
+          example: "123$SFF22l"
+        username:
+          type: string
+          example: "testUsername"
+        firstName:
+          type: string
+          example: "Rolf"
+        lastName:
+          type: string
+          example: "Streefkerk"
+    Reset:
+      title: Reset
+      type: object
+      properties:
+        username:
+          type: string
+          example: "userTest"
+        confirmationCode:
+          type: string
+          example: "234553"
+        password:
+          type: string
+          example: "testPassword123!"
+    Verify:
+      type: object
+      title: Verify
+      properties:
+        confirmationCode:
+          type: string
+          example: "234305"
+        username:
+          type: string
+          example: "testUser"
+    User:
+      type: object
+      title: User
+      properties:
+        name:
+          type: string
+          example: "rolf-streefkerk"
+        title:
+          type: string
+          example: "Rolf Streefkerk"
+        description:
+          type: string
+          example: "Business Operating Manager"
+        creationDate:
+          type: string
+          example: "2019-03-15T12:33:33Z"
+        modifyDate:
+          type: string
+          example: "2019-03-15T12:33:33Z"
+    Lambda:
+      type: object
+      title: Lambda
+      properties:
+        isBase64Encoded:
+          type: boolean
+          example: false
+        statusCode:
+          type: number
+          example: 200
+        body:
+          type: object
+    Empty:
+      title: "Empty Schema"
+      type: "object"
+  responses:
+    404NotFound:
+      description: The specified resource was not found.
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Max-Age:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: string
+                example: "404"
+              message:
+                type: string
+                example: The specified resource was not found
+    500APIError:
+      description: Unexpected error
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Max-Age:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              statusCode:
+                type: string
+                example: "500"
+              message:
+                type: string
+                example: This is an error
+    user:
+      description: User
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    lambda:
+      description: Lambda
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Max-Age:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Lambda'
+    cors:
+      description: "200 response"
+      headers:
+        Access-Control-Allow-Origin:
+          schema:
+            type: "string"
+        Access-Control-Allow-Methods:
+          schema:
+            type: "string"
+        Access-Control-Max-Age:
+          schema:
+            type: "string"
+        Access-Control-Allow-Headers:
+          schema:
+            type: "string"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Empty"
+  securitySchemes:
+    example-CognitoUserPoolAuthorizer:
+      type: "apiKey"
+      name: "Authorization"
+      in: "header"
+      x-amazon-apigateway-authtype: "cognito_user_pools"
+      x-amazon-apigateway-authorizer:
+        providerARNs:
+        - "${cognito_user_pool_arn}"
+        type: "cognito_user_pools"
+tags:
+  - name: Identity
+    description: Identity management
+  - name: User
+    description: User data
