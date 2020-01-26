@@ -1,5 +1,6 @@
 locals {
   resource_name_prefix = "${var.namespace}-${var.resource_tag_name}"
+  api_url = "${aws_api_gateway_deployment._.invoke_url}${aws_api_gateway_stage._.stage_name}"
 }
 
 data "template_file" "_" {
