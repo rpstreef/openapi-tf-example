@@ -1,10 +1,22 @@
 'use strict'
 
-const { SuccessResponse } = require('../../../lib/response')
+const { SuccessResponse, ErrorResponse } = require('../../../lib/response')
+
+const JsonSchema = require('../../lib/jsonSchema')
+const schema = require('../../schema/example.json')
+const input = new JsonSchema(schema['/identity/register'].post.body)
 
 async function handler (params, operation) {
   // register user
-  return new SuccessResponse('Success')
+  const results = input.validateInput(params)
+
+  if (results.valid) {
+    return new SuccessResponse('Success, user with email address: ' + params.email + ' registered successfully')
+  }
+
+  return new ErrorResponse({
+    message: results.errors
+  })
 }
 
 module.exports = { handler }
