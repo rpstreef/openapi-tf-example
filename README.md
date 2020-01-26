@@ -1,5 +1,7 @@
 # openapi-tf-example
 
+Check the companion article on [dev.to](https://dev.to/rolfstreefkerk/openapi-with-terraform-on-aws-api-gateway-17je).
+
 # Get started
 
 ## The essentials
