@@ -34,9 +34,6 @@ override.tf.json
 # Node ignores
 node_modules
 
-# Docker source code, separate GitHub repo
-docker
-
 # distribution files
 env/dev/dist/example/*
 env/dev/dist/layer/*
