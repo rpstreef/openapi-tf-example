@@ -256,6 +256,8 @@ components:
     Authenticate:
       title: Authenticate
       type: object
+      required:
+        - username
       properties:
         username:
           type: string
@@ -270,10 +272,17 @@ components:
       title: Register
       type: object
       description: Only an Organization can register, this User is its representative
+      required:
+        - email
+        - password
+        - username
+        - firstName
+        - lastName
       properties:
         email:
           type: string
           example: "user@business.com"
+          pattern: "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
         password:
           type: string
           example: "123$SFF22l"
@@ -289,6 +298,8 @@ components:
     Reset:
       title: Reset
       type: object
+      required:
+        - username
       properties:
         username:
           type: string
@@ -302,6 +313,9 @@ components:
     Verify:
       type: object
       title: Verify
+      required:
+        - username
+        - confirmationCode
       properties:
         confirmationCode:
           type: string
@@ -312,6 +326,10 @@ components:
     User:
       type: object
       title: User
+      required:
+        - name
+        - title
+        - description
       properties:
         name:
           type: string
@@ -331,6 +349,10 @@ components:
     Lambda:
       type: object
       title: Lambda
+      required:
+        - isBase64Encoded
+        - statusCode
+        - body
       properties:
         isBase64Encoded:
           type: boolean

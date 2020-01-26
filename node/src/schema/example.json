@@ -4,6 +4,9 @@
       "body": {
         "title": "Authenticate",
         "type": "object",
+        "required": [
+          "username"
+        ],
         "properties": {
           "username": {
             "type": "string"
@@ -21,6 +24,11 @@
         "200": {
           "type": "object",
           "title": "Lambda",
+          "required": [
+            "isBase64Encoded",
+            "statusCode",
+            "body"
+          ],
           "properties": {
             "isBase64Encoded": {
               "type": "boolean"
@@ -37,6 +45,11 @@
         "400": {
           "type": "object",
           "title": "Lambda",
+          "required": [
+            "isBase64Encoded",
+            "statusCode",
+            "body"
+          ],
           "properties": {
             "isBase64Encoded": {
               "type": "boolean"
@@ -90,9 +103,17 @@
         "title": "Register",
         "type": "object",
         "description": "Only an Organization can register, this User is its representative",
+        "required": [
+          "email",
+          "password",
+          "username",
+          "firstName",
+          "lastName"
+        ],
         "properties": {
           "email": {
-            "type": "string"
+            "type": "string",
+            "pattern": "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
           },
           "password": {
             "type": "string"
@@ -113,6 +134,11 @@
         "200": {
           "type": "object",
           "title": "Lambda",
+          "required": [
+            "isBase64Encoded",
+            "statusCode",
+            "body"
+          ],
           "properties": {
             "isBase64Encoded": {
               "type": "boolean"
@@ -129,6 +155,11 @@
         "400": {
           "type": "object",
           "title": "Lambda",
+          "required": [
+            "isBase64Encoded",
+            "statusCode",
+            "body"
+          ],
           "properties": {
             "isBase64Encoded": {
               "type": "boolean"
@@ -181,6 +212,9 @@
       "body": {
         "title": "Reset",
         "type": "object",
+        "required": [
+          "username"
+        ],
         "properties": {
           "username": {
             "type": "string"
@@ -198,6 +232,11 @@
         "200": {
           "type": "object",
           "title": "Lambda",
+          "required": [
+            "isBase64Encoded",
+            "statusCode",
+            "body"
+          ],
           "properties": {
             "isBase64Encoded": {
               "type": "boolean"
@@ -214,6 +253,11 @@
         "400": {
           "type": "object",
           "title": "Lambda",
+          "required": [
+            "isBase64Encoded",
+            "statusCode",
+            "body"
+          ],
           "properties": {
             "isBase64Encoded": {
               "type": "boolean"
@@ -266,6 +310,10 @@
       "body": {
         "type": "object",
         "title": "Verify",
+        "required": [
+          "username",
+          "confirmationCode"
+        ],
         "properties": {
           "confirmationCode": {
             "type": "string"
@@ -280,6 +328,11 @@
         "200": {
           "type": "object",
           "title": "Lambda",
+          "required": [
+            "isBase64Encoded",
+            "statusCode",
+            "body"
+          ],
           "properties": {
             "isBase64Encoded": {
               "type": "boolean"
@@ -296,6 +349,11 @@
         "400": {
           "type": "object",
           "title": "Lambda",
+          "required": [
+            "isBase64Encoded",
+            "statusCode",
+            "body"
+          ],
           "properties": {
             "isBase64Encoded": {
               "type": "boolean"
@@ -349,6 +407,11 @@
         "200": {
           "type": "object",
           "title": "User",
+          "required": [
+            "name",
+            "title",
+            "description"
+          ],
           "properties": {
             "name": {
               "type": "string"
