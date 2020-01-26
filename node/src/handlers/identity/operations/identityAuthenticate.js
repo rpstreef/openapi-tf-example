@@ -34,8 +34,4 @@ async function handler (params, operation) {
   })
 }
 
-handler({}, 'd').then(results => {
-  console.info(results)
-})
-
 module.exports = { handler }
