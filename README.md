@@ -28,6 +28,8 @@ If you meet all the pre-requisites, do the following
 
 See my full guide on dev.to for more information about this project
 
+ps. I'm aware the gulp file doesn't exit nicely, i'm not an expert. Any pull requests or issue reports with pointers is definitely appreciated.
+
 ## VS Code plugins used
 
 - [StandardJS](https://marketplace.visualstudio.com/items?itemName=chenxsan.vscode-standardjs)
@@ -35,4 +37,15 @@ See my full guide on dev.to for more information about this project
 - [OpenAPI Editor](https://marketplace.visualstudio.com/items?itemName=42Crunch.vscode-openapi)
 - [OpenAPI Designer](https://marketplace.visualstudio.com/items?itemName=philosowaffle.openapi-designer)
 
-ps. I'm aware the gulp file doesn't exit nicely, i'm not an expert. Any pull requests or issue reports with pointers is definitely appreciated.
+## Running costs
+
+There are no costs associated with deploying any of this on AWS, there is [Free Tier](https://aws.amazon.com/free) coverage for limited free use.
+
+The following services are deployed with Terraform;
+- AWS Cognito
+- AWS API Gateway
+- AWS Lambda & Lambda Layer
+- AWS IAM
+
+The following you have to create manually:
+- AWS S3 Bucket for Terraform state storage
