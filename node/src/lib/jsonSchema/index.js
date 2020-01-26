@@ -15,12 +15,12 @@ function JsonSchema (schema) {
 }
 
 /**
- * Validate against the schema
+ * Validate input against the schema
  *
  * @param {object} input
- * @returns {object} resp
+ * @returns {object} resp { valid: true|false, errors: {}}
  */
-JsonSchema.prototype.validateSchema = function (input) {
+JsonSchema.prototype.validateInput = function (input) {
   const valid = this.validate(input)
   const resp = {
     valid: false,

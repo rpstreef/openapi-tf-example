@@ -59,7 +59,6 @@ async function authenticate (username, password, refreshToken) {
   }
 }
 
-
 module.exports = {
   authenticate
 }
