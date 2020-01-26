@@ -111,7 +111,9 @@ exports.build = task('full',
 exports.build = task('src',
   series(
     task('clean-project-layer'),
+    task('to-root-dir'),
     task('js-project'),
+    task('from-root-dir'),
     task('zip-project'),
     task('terraform')
   ))
