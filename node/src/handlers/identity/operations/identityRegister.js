@@ -2,8 +2,8 @@
 
 const { SuccessResponse, ErrorResponse } = require('../../../lib/response')
 
-const JsonSchema = require('../../lib/jsonSchema')
-const schema = require('../../schema/example.json')
+const JsonSchema = require('../../../lib/jsonSchema')
+const schema = require('../../../schema/example.json')
 const input = new JsonSchema(schema['/identity/register'].post.body)
 
 async function handler (params, operation) {

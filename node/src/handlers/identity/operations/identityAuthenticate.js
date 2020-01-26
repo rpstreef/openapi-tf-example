@@ -3,8 +3,8 @@
 const { SuccessResponse, ErrorResponse } = require('../../../lib/response')
 const cognito = require('../../../lib/cognito')
 
-const JsonSchema = require('../../lib/jsonSchema')
-const schema = require('../../schema/example.json')
+const JsonSchema = require('../../../lib/jsonSchema')
+const schema = require('../../../schema/example.json')
 const input = new JsonSchema(schema['/identity/authenticate'].post.body)
 
 async function handler (params, operation) {
@@ -33,5 +33,9 @@ async function handler (params, operation) {
     message: results.errors
   })
 }
+
+handler({}, 'd').then(results => {
+  console.info(results)
+})
 
 module.exports = { handler }
