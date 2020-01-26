@@ -1,0 +1,405 @@
+{
+  "/identity/authenticate": {
+    "post": {
+      "body": {
+        "title": "Authenticate",
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "refreshToken": {
+            "type": "string"
+          }
+        },
+        "$schema": "http://json-schema.org/draft-04/schema#"
+      },
+      "responses": {
+        "200": {
+          "type": "object",
+          "title": "Lambda",
+          "properties": {
+            "isBase64Encoded": {
+              "type": "boolean"
+            },
+            "statusCode": {
+              "type": "number"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "type": "object",
+          "title": "Lambda",
+          "properties": {
+            "isBase64Encoded": {
+              "type": "boolean"
+            },
+            "statusCode": {
+              "type": "number"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "type": "object",
+          "properties": {
+            "statusCode": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    },
+    "options": {
+      "responses": {
+        "200": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    }
+  },
+  "/identity/register": {
+    "post": {
+      "body": {
+        "title": "Register",
+        "type": "object",
+        "description": "Only an Organization can register, this User is its representative",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        },
+        "$schema": "http://json-schema.org/draft-04/schema#"
+      },
+      "responses": {
+        "200": {
+          "type": "object",
+          "title": "Lambda",
+          "properties": {
+            "isBase64Encoded": {
+              "type": "boolean"
+            },
+            "statusCode": {
+              "type": "number"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "type": "object",
+          "title": "Lambda",
+          "properties": {
+            "isBase64Encoded": {
+              "type": "boolean"
+            },
+            "statusCode": {
+              "type": "number"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "type": "object",
+          "properties": {
+            "statusCode": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    },
+    "options": {
+      "responses": {
+        "200": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    }
+  },
+  "/identity/reset": {
+    "post": {
+      "body": {
+        "title": "Reset",
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "confirmationCode": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "$schema": "http://json-schema.org/draft-04/schema#"
+      },
+      "responses": {
+        "200": {
+          "type": "object",
+          "title": "Lambda",
+          "properties": {
+            "isBase64Encoded": {
+              "type": "boolean"
+            },
+            "statusCode": {
+              "type": "number"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "type": "object",
+          "title": "Lambda",
+          "properties": {
+            "isBase64Encoded": {
+              "type": "boolean"
+            },
+            "statusCode": {
+              "type": "number"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "type": "object",
+          "properties": {
+            "statusCode": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    },
+    "options": {
+      "responses": {
+        "200": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    }
+  },
+  "/identity/verify": {
+    "post": {
+      "body": {
+        "type": "object",
+        "title": "Verify",
+        "properties": {
+          "confirmationCode": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "$schema": "http://json-schema.org/draft-04/schema#"
+      },
+      "responses": {
+        "200": {
+          "type": "object",
+          "title": "Lambda",
+          "properties": {
+            "isBase64Encoded": {
+              "type": "boolean"
+            },
+            "statusCode": {
+              "type": "number"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "type": "object",
+          "title": "Lambda",
+          "properties": {
+            "isBase64Encoded": {
+              "type": "boolean"
+            },
+            "statusCode": {
+              "type": "number"
+            },
+            "body": {
+              "type": "object"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "type": "object",
+          "properties": {
+            "statusCode": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    },
+    "options": {
+      "responses": {
+        "200": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    }
+  },
+  "/user": {
+    "get": {
+      "responses": {
+        "200": {
+          "type": "object",
+          "title": "User",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "creationDate": {
+              "type": "string"
+            },
+            "modifyDate": {
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "type": "object",
+          "properties": {
+            "statusCode": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          },
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    },
+    "options": {
+      "responses": {
+        "200": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "400": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        },
+        "500": {
+          "title": "Empty Schema",
+          "type": "object",
+          "$schema": "http://json-schema.org/draft-04/schema#"
+        }
+      }
+    }
+  }
+}
