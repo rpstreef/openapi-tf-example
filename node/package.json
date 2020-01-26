@@ -9,7 +9,8 @@
     "author": "Rolf Streefkerk",
     "license": "Apache-2.0",
     "dependencies": {
-        "middy": "^0.25.0"
+        "middy": "^0.25.0",
+        "ajv": "^6.11.0"
     },
     "devDependencies": {
         "aws-sdk": "^2.435.0"
