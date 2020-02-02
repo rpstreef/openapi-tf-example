@@ -48,6 +48,7 @@ The following services are deployed with Terraform;
 - AWS API Gateway
 - AWS Lambda & Lambda Layer
 - AWS IAM
+- (Added) CloudWatch Alarms, costs will be incurred for enabling Detailed Monitoring for API Gateway (!)
 
 The following you have to create manually:
 - AWS S3 Bucket for Terraform state storage
