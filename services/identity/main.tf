@@ -1,7 +1,7 @@
 locals {
   resource_name_prefix = "${var.namespace}-${var.resource_tag_name}"
 
-  local_lambda_function_name = "identity"
+  lambda_function_name = "identity"
 }
 
 # -----------------------------------------------------------------------------
@@ -21,8 +21,8 @@ module "iam" {
 
   assume_role_policy = file("${path.module}/policies/lambda-assume-role.json")
   template           = file("${path.module}/policies/lambda.json")
-  role_name          = "${local.local_lambda_function_name}-role"
-  policy_name        = "${local.local_lambda_function_name}-policy"
+  role_name          = "${local.lambda_function_name}-role"
+  policy_name        = "${local.lambda_function_name}-policy"
 
   role_vars = {
     cognito_user_pool_arn = var.cognito_user_pool_arn
@@ -39,7 +39,7 @@ module "lambda" {
   region            = var.region
   resource_tag_name = var.resource_tag_name
 
-  lambda_function_name = local.local_lambda_function_name
+  lambda_function_name = local.lambda_function_name
   lambda_role_arn      = module.iam.role_arn
   lambda_filename      = "${var.dist_path}/${var.lambda_zip_name}"
   lambda_layer_arn     = var.lambda_layer_arn
@@ -75,4 +75,20 @@ resource "aws_lambda_permission" "_" {
     }:${
     var.api_gateway_rest_api_id
   }/*/*"
+}
+
+# -----------------------------------------------------------------------------
+# Module: CloudWatch Alarms Lambda
+# -----------------------------------------------------------------------------
+module "cloudwatch-alarms-lambda" {
+  source = "../../modules/cloudwatch-alarms-lambda"
+
+  namespace         = var.namespace
+  region            = var.region
+  resource_tag_name = var.resource_tag_name
+
+  create_iteratorAge_alarm     = false
+  create_deadLetterQueue_alarm = false
+
+  function_name = "${local.resource_name_prefix}-${local.lambda_function_name}"
 }
