@@ -72,3 +72,8 @@ variable "api_throttling_rate_limit" {
 variable "api_throttling_burst_limit" {
   description = "API Gateway total concurrent connections allowed for all API's within a REST endpoint"
 }
+
+variable "api_resources" {
+  description = "API resources/paths we want monitored by CloudWatch"
+  type        = map
+}

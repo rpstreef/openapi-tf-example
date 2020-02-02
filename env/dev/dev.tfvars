@@ -24,3 +24,12 @@ lambda_user_api_timeout = 4000
 # API Gateway
 api_throttling_rate_limit  = 5
 api_throttling_burst_limit = 10
+
+# CloudWatch API Gateway
+api_resources = {
+  "/identity/authenticate" = "POST",
+  "/identity/register"     = "POST",
+  "/identity/reset"        = "POST",
+  "/identity/verify"       = "POST",
+  "/user"                  = "GET"
+}

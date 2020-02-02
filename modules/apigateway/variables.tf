@@ -26,10 +26,9 @@ variable "api_template" {
 }
 
 variable "api_template_vars" {
-  type = map
   description = "Variables required in the OpenAPI template file"
+  type        = map
 }
-
 
 variable "api_throttling_rate_limit" {
   description = "API Gateway total requests across all API's within a REST endpoint"
@@ -37,6 +36,12 @@ variable "api_throttling_rate_limit" {
 
 variable "api_throttling_burst_limit" {
   description = "API Gateway total concurrent connections allowed for all API's within a REST endpoint"
+}
+
+variable "api_metrics_enabled" {
+  description = "Enables detailed API Gateway metrics"
+  type        = bool
+  default     = false
 }
 
 # -----------------------------------------------------------------------------

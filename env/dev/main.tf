@@ -87,6 +87,22 @@ module "apigateway" {
 }
 
 # -----------------------------------------------------------------------------
+# CloudWatch: API Gateway 
+# -----------------------------------------------------------------------------
+module "cloudwatch_alarms_apigateway" {
+  source = "../../modules/cloudwatch-alarms-apigateway"
+
+  namespace         = var.namespace
+  region            = var.region
+  resource_tag_name = var.resource_tag_name
+
+  api_name  = module.apigateway.api_name
+  api_stage = module.apigateway.api_stage
+
+  resources = var.api_resources
+}
+
+# -----------------------------------------------------------------------------
 # Lambda services
 # -----------------------------------------------------------------------------
 module "identity" {
