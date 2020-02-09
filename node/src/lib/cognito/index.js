@@ -50,13 +50,7 @@ async function authenticate (username, password, refreshToken) {
       }
     }
   }
-
-  try {
-    return cognito.adminInitiateAuth(params).promise()
-  } catch (err) {
-    console.error('Cognito authenticate: ' + err.message)
-    throw new Error('Cognito authenticate: ' + err.message)
-  }
+  return cognito.adminInitiateAuth(params).promise()
 }
 
 module.exports = {

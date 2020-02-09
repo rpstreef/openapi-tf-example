@@ -44,29 +44,26 @@ SNS sample event
  * @param {string} correlation_id
  */
 async function publish (topicARN, message, logger, correlationId) {
-  try {
-    var params = {
-      Message: message,
-      MessageAttributes: {
-        x_correlation_id: {
-          DataType: 'String',
-          StringValue: correlationId
-        }
-      },
-      TopicArn: topicARN
-    }
-    const results = await sns.publish(params).promise()
-
-    if (results.err) {
-      throw Error('SNS publish error caught: ' + JSON.stringify(results.err))
-    }
-
-    logger.info('SNS message published, message id: ' + results.MessageId)
-
-    return results.MessageId
-  } catch (err) {
-    throw Error('SNS publish error caught: ' + err.message)
+  var params = {
+    Message: message,
+    MessageAttributes: {
+      x_correlation_id: {
+        DataType: 'String',
+        StringValue: correlationId
+      }
+    },
+    TopicArn: topicARN
   }
+  const results = await sns.publish(params).promise()
+
+  if (results.err) {
+    logger.error('SNS publish error caught: ' + results.err)
+    throw Error('SNS publish error caught: ' + JSON.stringify(results.err))
+  }
+
+  logger.info('SNS message published, message id: ' + results.MessageId)
+
+  return results.MessageId
 }
 
 module.exports = { publish }

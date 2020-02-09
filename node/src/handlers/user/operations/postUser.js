@@ -6,18 +6,20 @@ const CorrelationId = require('../../../lib/correlationId')
 const sns = require('../../../lib/sns')
 
 async function handler (event, context) {
-  console.info('Event: ' + JSON.stringify(event))
-  console.info('Context: ' + JSON.stringify(context))
-
   const logger = new Logger(event, context).create()
   const correlationId = new CorrelationId(event).getCorrelationID()
+  let results
 
-  const results = await sns.publish(
-    process.env.SNS_TOPIC,
-    'Message',
-    logger,
-    correlationId
-  )
+  try {
+    results = await sns.publish(
+      process.env.SNS_TOPIC,
+      'Message',
+      logger,
+      correlationId
+    )
+  } catch (error) {
+    logger.error(error.message)
+  }
 
   if (results) {
     return new SuccessResponse({
