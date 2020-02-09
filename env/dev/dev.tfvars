@@ -10,6 +10,7 @@ cognito_identity_pool_name     = "users"
 cognito_identity_pool_provider = "providers"
 
 # Lambda & API endpoint configuration
+debug_sample_rate = 0.05
 
 # Identity (login/authentication)
 lambda_identity_memory_size = 256

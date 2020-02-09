@@ -5,14 +5,18 @@ const { ErrorResponse } = require('../../lib/response')
 const standards = require('../../lib/standards')
 
 const getUser = require('./operations/getUser')
+const postUser = require('./operations/postUser')
 
 const handler = middy(async (event, context) => {
-  const params = standards.getParams(event)
   const operation = standards.getOperationName(event)
 
   switch (operation) {
     case 'getUser': {
-      return getUser.handler(params, operation)
+      return getUser.handler(event, context)
+    }
+
+    case 'postUser': {
+      return postUser.handler(event, context)
     }
 
     default: {

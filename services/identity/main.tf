@@ -57,6 +57,8 @@ module "lambda" {
 
     COGNITO_USER_POOL_CLIENT_ID = var.cognito_user_pool_client_id
     COGNITO_USER_POOL_ID        = var.cognito_user_pool_id
+
+    DEBUG_SAMPLE_RATE = var.debug_sample_rate
   }
 }
 

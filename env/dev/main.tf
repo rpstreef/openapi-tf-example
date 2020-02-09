@@ -125,6 +125,8 @@ module "identity" {
 
   api_gateway_deployment_execution_arn = module.apigateway.deployment_execution_arn
   api_gateway_rest_api_id              = module.apigateway.rest_api_id
+
+  debug_sample_rate = var.debug_sample_rate
 }
 
 module "user" {
@@ -147,4 +149,6 @@ module "user" {
 
   api_gateway_deployment_execution_arn = module.apigateway.deployment_execution_arn
   api_gateway_rest_api_id              = module.apigateway.rest_api_id
+
+  debug_sample_rate = var.debug_sample_rate
 }

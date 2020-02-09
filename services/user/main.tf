@@ -2,6 +2,9 @@ locals {
   resource_name_prefix = "${var.namespace}-${var.resource_tag_name}"
 
   lambda_function_name = "user"
+  lambda_function_receiver_name = "user_receiver"
+
+  local_sns_topic_name = "user-topic"
 }
 
 # -----------------------------------------------------------------------------
@@ -26,6 +29,7 @@ module "iam" {
 
   role_vars = {
     cognito_user_pool_arn = var.cognito_user_pool_arn
+    sns_topic_arn = module.sns.topic_arn
   }
 }
 
@@ -57,6 +61,38 @@ module "lambda" {
 
     COGNITO_USER_POOL_CLIENT_ID = var.cognito_user_pool_client_id
     COGNITO_USER_POOL_ID        = var.cognito_user_pool_id
+
+    DEBUG_SAMPLE_RATE = var.debug_sample_rate
+
+    SNS_TOPIC = module.sns.topic_arn
+  }
+}
+
+
+module "lambda_receiver" {
+  source = "../../modules/lambda"
+
+  namespace         = var.namespace
+  region            = var.region
+  resource_tag_name = var.resource_tag_name
+
+  lambda_function_name = local.lambda_function_receiver_name
+  lambda_role_arn      = module.iam.role_arn
+  lambda_filename      = "${var.dist_path}/${var.lambda_zip_name}"
+  lambda_layer_arn     = var.lambda_layer_arn
+
+  lambda_memory_size = var.lambda_memory_size
+  lambda_timeout     = var.lambda_timeout
+
+  distribution_file_name = var.lambda_zip_name
+
+  dist_path = var.dist_path
+
+  lambda_environment_variables = {
+    NAMESPACE = var.namespace
+    REGION    = var.region
+
+    DEBUG_SAMPLE_RATE = var.debug_sample_rate
   }
 }
 
@@ -91,4 +127,19 @@ module "cloudwatch-alarms-lambda" {
   create_deadLetterQueue_alarm = false
 
   function_name = "${local.resource_name_prefix}-${local.lambda_function_name}"
+}
+
+# -----------------------------------------------------------------------------
+# Module: SNS pub/sub
+# -----------------------------------------------------------------------------
+
+module "sns" {
+  source = "../../modules/sns-topic-subscription"
+
+  namespace         = var.namespace
+  region            = var.region
+  resource_tag_name = var.resource_tag_name
+
+  topic_name          = local.local_sns_topic_name
+  lambda_function_arn = module.lambda_receiver.arn
 }

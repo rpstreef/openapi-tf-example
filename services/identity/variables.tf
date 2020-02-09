@@ -36,6 +36,11 @@ variable "dist_path" {
   description = "Path where the ZIP file is located relative to the service"
 }
 
+variable "debug_sample_rate" {
+  description = "Productive use, how many percentage of logs will be set to Debug"
+  type        = number
+}
+
 # -----------------------------------------------------------------------------
 # Variables: API Gateway
 # -----------------------------------------------------------------------------

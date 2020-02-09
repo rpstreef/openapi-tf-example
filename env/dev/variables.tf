@@ -18,6 +18,11 @@ variable "resource_tag_name" {
   description = "Resource name for billing purposes"
 }
 
+variable "debug_sample_rate" {
+  description = "Productive use, how many percentage of logs will be set to Debug"
+  type        = number
+}
+
 # -----------------------------------------------------------------------------
 # Variables: Cognito
 # -----------------------------------------------------------------------------

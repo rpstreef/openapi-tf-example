@@ -221,6 +221,33 @@ paths:
           $ref: '#/components/responses/500APIError'
       tags:
         - User
+    post:
+      operationId: postUser
+      description: Add a new user
+      parameters:
+       - $ref: '#/components/parameters/correlationIdHeader'
+       - $ref: '#/components/parameters/debugHeader'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      x-amazon-apigateway-integration:
+        uri: "arn:aws:apigateway:${region}:lambda:path/2015-03-31/functions/${lambda_user_arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        httpMethod: "POST"
+        timeoutInMillis: ${lambda_user_timeout}
+        type: "aws_proxy"
+      responses:
+        200:
+          $ref: '#/components/responses/lambda'
+        400:
+          $ref: '#/components/responses/lambda'
+        500:
+          $ref: '#/components/responses/500APIError'
+      tags:
+        - User
     options:
       responses:
         200:
@@ -252,6 +279,21 @@ components:
       schema:
         type: string
       required: true
+    correlationIdHeader:
+      description: Unique string that can trace execution across services
+      in: header
+      name: x-correlation-id
+      schema:
+        type: string
+      required: true
+    debugHeader:
+      description: Force debug level for this execution run
+      in: header
+      name: x-debug-level
+      schema:
+        type: string
+        enum: [error, debug, info]  
+      required: false
   schemas:
     Authenticate:
       title: Authenticate
