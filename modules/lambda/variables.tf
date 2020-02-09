@@ -50,10 +50,15 @@ variable "lambda_environment_variables" {
 
 variable "reserved_concurrent_executions" {
   description = " (Optional) The amount of reserved concurrent executions for this lambda function. A value of 0 disables lambda from being triggered and -1 removes any concurrency limitations. Defaults to Unreserved Concurrency Limits -1. See Managing Concurrency"
-  type = number
-  default = -1
+  type        = number
+  default     = -1
 }
 
+variable "log_retention_in_days" {
+  description = "How many days should logs be kept in CloudWatch"
+  type        = number
+  default     = 30
+}
 
 # -----------------------------------------------------------------------------
 # Variables: Lambda optional
@@ -61,20 +66,20 @@ variable "reserved_concurrent_executions" {
 
 variable "lambda_timeout" {
   description = "Timeout in seconds"
-  default = 10
+  default     = 10
 }
 
 variable "lambda_memory_size" {
   description = "Allocated memory (and indirectly CPU power)"
-  default = 512
+  default     = 512
 }
 
 variable "lambda_runtime" {
   description = "Runtime of this Lambda function"
-  default = "nodejs10.x"
+  default     = "nodejs10.x"
 }
 
 variable "tracing_config_mode" {
   description = "Can be either PassThrough or Active. If PassThrough, Lambda will only trace the request from an upstream service if it contains a tracing header with 'sampled=1'. If Active, Lambda will respect any tracing header it receives from an upstream service. If no tracing header is received, Lambda will call X-Ray for a tracing decision"
-  default = "PassThrough"
+  default     = "PassThrough"
 }
