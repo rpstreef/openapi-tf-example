@@ -25,6 +25,8 @@ lambda_user_api_timeout = 4000
 # API Gateway
 api_throttling_rate_limit  = 5
 api_throttling_burst_limit = 10
+api_metrics_enabled        = true
+api_logging_level          = "ERROR"
 
 # CloudWatch API Gateway
 api_resources = {

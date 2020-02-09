@@ -69,6 +69,8 @@ module "apigateway" {
   api_name                   = local.api_name
   api_throttling_rate_limit  = var.api_throttling_rate_limit
   api_throttling_burst_limit = var.api_throttling_burst_limit
+  api_metrics_enabled        = var.api_metrics_enabled
+  api_logging_level          = var.api_logging_level
   api_template               = file("../../services/api/${local.api_name}.yml")
   api_template_vars = {
     region = var.region

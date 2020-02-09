@@ -44,6 +44,12 @@ variable "api_metrics_enabled" {
   default     = false
 }
 
+variable "api_logging_level" {
+  description = " (Optional) Specifies the logging level for this method, which effects the log entries pushed to Amazon CloudWatch Logs. The available levels are OFF, ERROR, and INFO."
+  type        = string
+  default     = "OFF"
+}
+
 # -----------------------------------------------------------------------------
 # Variables: Misc.
 # -----------------------------------------------------------------------------
