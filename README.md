@@ -1,4 +1,4 @@
-# openapi-tf-example
+# OpenAPI with AWS API Gateway, Lambda, Cognito, SNS and CloudWatch logs
 
 Check the companion article on [dev.to](https://dev.to/rolfstreefkerk/openapi-with-terraform-on-aws-api-gateway-17je).
 
