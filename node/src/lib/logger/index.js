@@ -167,8 +167,4 @@ Logger.prototype.getLogLevel = function () {
   return undefined
 }
 
-const log = new Logger({}, {})
-
-log.error('test')
-
 module.exports = Logger
