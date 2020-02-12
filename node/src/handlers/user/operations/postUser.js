@@ -6,7 +6,7 @@ const CorrelationId = require('../../../lib/correlationId')
 const sns = require('../../../lib/sns')
 
 async function handler (event, context) {
-  const logger = new Logger(event, context).create()
+  const logger = new Logger(event, context)
   const correlationId = new CorrelationId(event).getCorrelationID()
   let results
 

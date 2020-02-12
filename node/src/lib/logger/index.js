@@ -15,6 +15,7 @@ function Logger (event, context) {
   this.context = context
 
   this.cId = new CorrelationId(event)
+  this.logger = this.create()
 }
 
 Logger.prototype.HTTP_DEBUG_HEADER = 'x-debug-level'
@@ -47,6 +48,33 @@ Logger.prototype.create = function () {
     transports: [new transports.Console()], // only output to console
     exceptionHandlers: [new transports.Console()] // automatically capture any uncaught exceptions
   })
+}
+
+/**
+ * Log Info
+ *
+ * @param {object|string} message - can be a JSON object or string
+ */
+Logger.prototype.info = function (message) {
+  this.logger.info(message)
+}
+
+/**
+ * Log Error
+ *
+ * @param {object|string} message - can be a JSON object or string
+ */
+Logger.prototype.error = function (message) {
+  this.logger.error(message)
+}
+
+/**
+ * Log Debug
+ *
+ * @param {object|string} message - can be a JSON object or string
+ */
+Logger.prototype.debug = function (message) {
+  this.logger.debug(message)
 }
 
 /**
@@ -138,5 +166,9 @@ Logger.prototype.getLogLevel = function () {
   // No debug level set
   return undefined
 }
+
+const log = new Logger({}, {})
+
+log.error('test')
 
 module.exports = Logger
