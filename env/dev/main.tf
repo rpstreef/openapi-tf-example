@@ -61,7 +61,7 @@ module "lambda-layer" {
 # API Gateway
 # -----------------------------------------------------------------------------
 module "apigateway" {
-  source            = "../../modules/apigateway"
+  source            = "github.com/rpstreef/tf-apigateway?ref=v1.0"
   resource_tag_name = var.resource_tag_name
   namespace         = var.namespace
   region            = var.region
