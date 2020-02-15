@@ -94,3 +94,9 @@ variable "api_logging_level" {
   type        = string
   default     = "OFF"
 }
+
+variable "xray_tracing_enabled" {
+  description = "Enables the XRay tracing and will create the necessary IAM permissions "
+  type        = bool
+  default     = false
+}
