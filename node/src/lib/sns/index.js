@@ -1,5 +1,7 @@
 const AWS = require('aws-sdk')
-const sns = new AWS.SNS({ apiVersion: '2010-03-31' })
+const AWSXRay = require('aws-xray-sdk')
+
+const sns = AWSXRay.captureAWSClient(new AWS.SNS({ apiVersion: '2010-03-31' }))
 
 /*
 SNS sample event

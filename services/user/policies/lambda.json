@@ -33,6 +33,19 @@
         "sns:Publish"
       ],
       "Resource": "${sns_topic_arn}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "xray:PutTraceSegments",
+        "xray:PutTelemetryRecords",
+        "xray:GetSamplingRules",
+        "xray:GetSamplingTargets",
+        "xray:GetSamplingStatisticSummaries"
+      ],
+      "Resource": [
+        "*"
+      ]
     }
   ]
 }

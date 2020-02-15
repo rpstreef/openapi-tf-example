@@ -8,7 +8,7 @@ const CorrelationId = require('../correlationId')
  *
  * @param {object} event - Lambda event
  * @param {object} context - Lambda context
- * @param {object} sampleRate - number between 0 - 1 determines the percentage of times the log will set to debug. In Production only
+ * @param {number} sampleRate - number between 0 - 1 determines the percentage of times the log will set to debug. In Production only
  */
 function Logger (event, context) {
   this.event = event
