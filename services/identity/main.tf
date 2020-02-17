@@ -28,7 +28,7 @@ module "iam" {
 # Module: Lambda
 # -----------------------------------------------------------------------------
 module "lambda" {
-  source = "github.com/rpstreef/tf-lambda?ref=v1.0"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.1"
 
   namespace         = var.namespace
   region            = var.region

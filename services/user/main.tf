@@ -24,7 +24,7 @@ module "iam" {
 
   role_vars = {
     cognito_user_pool_arn = var.cognito_user_pool_arn
-    sns_topic_arn         = module.sns.topic_arn
+    sns_topic_arn         = module.sns.sns_topic_arn_lambda
   }
 }
 
@@ -32,7 +32,7 @@ module "iam" {
 # Module: Lambda
 # -----------------------------------------------------------------------------
 module "lambda" {
-  source = "github.com/rpstreef/tf-lambda?ref=v1.0"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.1"
 
   namespace         = var.namespace
   region            = var.region
@@ -59,7 +59,7 @@ module "lambda" {
 
     DEBUG_SAMPLE_RATE = var.debug_sample_rate
 
-    SNS_TOPIC = module.sns.topic_arn
+    SNS_TOPIC = module.sns.sns_topic_arn_lambda
   }
 
   create_deadLetterQueue_alarm = false
@@ -70,7 +70,7 @@ module "lambda" {
 
 
 module "lambda_receiver" {
-  source = "github.com/rpstreef/tf-lambda?ref=v1.0"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.1"
 
   namespace         = var.namespace
   region            = var.region
@@ -98,20 +98,23 @@ module "lambda_receiver" {
   create_deadLetterQueue_alarm = false
   create_iteratorAge_alarm     = false
 
-  api_gateway_permission  = false
+  api_gateway_permission = false
+
+  sns_topic_subscription = true
+  sns_topic_arn          = module.sns.sns_topic_arn_lambda
 }
 
 # -----------------------------------------------------------------------------
 # Module: SNS pub/sub
+# lambda_function_arn = module.lambda_receiver.arn
 # -----------------------------------------------------------------------------
 
 module "sns" {
-  source = "../../modules/sns-topic-subscription"
+  source = "github.com/rpstreef/tf-sns-topic?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region
   resource_tag_name = var.resource_tag_name
 
-  topic_name          = local.local_sns_topic_name
-  lambda_function_arn = module.lambda_receiver.arn
+  topic_name = local.local_sns_topic_name
 }
