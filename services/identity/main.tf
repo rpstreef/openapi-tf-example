@@ -33,7 +33,7 @@ module "iam" {
 # Module: Lambda
 # -----------------------------------------------------------------------------
 module "lambda" {
-  source = "../../modules/lambda"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region
@@ -60,37 +60,9 @@ module "lambda" {
 
     DEBUG_SAMPLE_RATE = var.debug_sample_rate
   }
-}
 
-# -----------------------------------------------------------------------------
-# Module: Lambda API Gateway permission
-# -----------------------------------------------------------------------------
-resource "aws_lambda_permission" "_" {
-  principal     = "apigateway.amazonaws.com"
-  action        = "lambda:InvokeFunction"
-  function_name = module.lambda.arn
-
-  source_arn = "arn:aws:execute-api:${
-    var.region
-    }:${
-    data.aws_caller_identity._.account_id
-    }:${
-    var.api_gateway_rest_api_id
-  }/*/*"
-}
-
-# -----------------------------------------------------------------------------
-# Module: CloudWatch Alarms Lambda
-# -----------------------------------------------------------------------------
-module "cloudwatch-alarms-lambda" {
-  source = "../../modules/cloudwatch-alarms-lambda"
-
-  namespace         = var.namespace
-  region            = var.region
-  resource_tag_name = var.resource_tag_name
-
-  create_iteratorAge_alarm     = false
   create_deadLetterQueue_alarm = false
+  create_iteratorAge_alarm     = false
 
-  function_name = "${local.resource_name_prefix}-${local.lambda_function_name}"
+  api_gateway_rest_api_id = var.api_gateway_rest_api_id
 }

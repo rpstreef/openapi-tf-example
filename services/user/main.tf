@@ -1,16 +1,11 @@
 locals {
   resource_name_prefix = "${var.namespace}-${var.resource_tag_name}"
 
-  lambda_function_name = "user"
+  lambda_function_name          = "user"
   lambda_function_receiver_name = "user_receiver"
 
   local_sns_topic_name = "user-topic"
 }
-
-# -----------------------------------------------------------------------------
-# Data: aws_caller_identity gets data from current AWS account
-# -----------------------------------------------------------------------------
-data "aws_caller_identity" "_" {}
 
 # -----------------------------------------------------------------------------
 # Module: IAM role
@@ -29,7 +24,7 @@ module "iam" {
 
   role_vars = {
     cognito_user_pool_arn = var.cognito_user_pool_arn
-    sns_topic_arn = module.sns.topic_arn
+    sns_topic_arn         = module.sns.topic_arn
   }
 }
 
@@ -37,7 +32,7 @@ module "iam" {
 # Module: Lambda
 # -----------------------------------------------------------------------------
 module "lambda" {
-  source = "../../modules/lambda"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region
@@ -66,11 +61,16 @@ module "lambda" {
 
     SNS_TOPIC = module.sns.topic_arn
   }
+
+  create_deadLetterQueue_alarm = false
+  create_iteratorAge_alarm     = false
+
+  api_gateway_rest_api_id = var.api_gateway_rest_api_id
 }
 
 
 module "lambda_receiver" {
-  source = "../../modules/lambda"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region
@@ -94,39 +94,11 @@ module "lambda_receiver" {
 
     DEBUG_SAMPLE_RATE = var.debug_sample_rate
   }
-}
 
-# -----------------------------------------------------------------------------
-# Module: Lambda API Gateway permission
-# -----------------------------------------------------------------------------
-resource "aws_lambda_permission" "_" {
-  principal     = "apigateway.amazonaws.com"
-  action        = "lambda:InvokeFunction"
-  function_name = module.lambda.arn
-
-  source_arn = "arn:aws:execute-api:${
-    var.region
-    }:${
-    data.aws_caller_identity._.account_id
-    }:${
-    var.api_gateway_rest_api_id
-  }/*/*"
-}
-
-# -----------------------------------------------------------------------------
-# Module: CloudWatch Alarms Lambda
-# -----------------------------------------------------------------------------
-module "cloudwatch-alarms-lambda" {
-  source = "../../modules/cloudwatch-alarms-lambda"
-
-  namespace         = var.namespace
-  region            = var.region
-  resource_tag_name = var.resource_tag_name
-
-  create_iteratorAge_alarm     = false
   create_deadLetterQueue_alarm = false
+  create_iteratorAge_alarm     = false
 
-  function_name = "${local.resource_name_prefix}-${local.lambda_function_name}"
+  api_gateway_permission  = false
 }
 
 # -----------------------------------------------------------------------------
