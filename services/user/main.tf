@@ -11,7 +11,7 @@ locals {
 # Module: IAM role
 # -----------------------------------------------------------------------------
 module "iam" {
-  source = "../../modules/iam"
+  source = "github.com/rpstreef/tf-iam?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region

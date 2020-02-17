@@ -8,7 +8,7 @@ resource "aws_lambda_layer_version" "_" {
 
   source_code_hash = filebase64sha256("${var.dist_file_path}/${var.zip_name}")
 
-  compatible_runtimes = ["nodejs10.x"]
+  compatible_runtimes = ["nodejs12.x"]
 
   description = var.description
 }
