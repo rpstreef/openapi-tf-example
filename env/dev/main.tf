@@ -61,7 +61,7 @@ module "lambda-layer" {
 # API Gateway
 # -----------------------------------------------------------------------------
 module "apigateway" {
-  source            = "github.com/rpstreef/tf-apigateway?ref=v1.1"
+  source            = "github.com/rpstreef/tf-apigateway?ref=v1.2"
   resource_tag_name = var.resource_tag_name
   namespace         = var.namespace
   region            = var.region
@@ -88,20 +88,6 @@ module "apigateway" {
 
   lambda_zip_name = local.lambda_zip_name
   dist_file_path  = local.dist_file_path
-}
-
-# -----------------------------------------------------------------------------
-# CloudWatch: API Gateway 
-# -----------------------------------------------------------------------------
-module "cloudwatch_alarms_apigateway" {
-  source = "../../modules/cloudwatch-alarms-apigateway"
-
-  namespace         = var.namespace
-  region            = var.region
-  resource_tag_name = var.resource_tag_name
-
-  api_name  = module.apigateway.api_name
-  api_stage = module.apigateway.api_stage
 
   resources = var.api_resources
 }
