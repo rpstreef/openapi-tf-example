@@ -45,7 +45,7 @@ module "cognito" {
 # Lambda Layer
 # -----------------------------------------------------------------------------
 module "lambda-layer" {
-  source = "../../modules/lambda-layer"
+  source = "github.com/rpstreef/tf-lambda-layer?ref=v1.0"
 
   resource_tag_name = var.resource_tag_name
   namespace         = var.namespace
