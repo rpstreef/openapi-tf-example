@@ -16,7 +16,7 @@ locals {
 # Cognito Identity
 # -----------------------------------------------------------------------------
 module "cognito" {
-  source = "../../modules/cognito"
+  source = "github.com/rpstreef/tf-cognito?ref=v1.0"
 
   namespace         = var.namespace
   resource_tag_name = var.resource_tag_name
