@@ -1,10 +1,8 @@
 # OpenAPI with AWS API Gateway, Lambda, Cognito, SNS and CloudWatch logs
 
-This repo only deploys the infrastructure via AWS CodePipeline, it will deploy the source code repo separately. By default, it's configured to automatically deploy at every push to the master branch.
+This repo only deploys the infrastructure via Terraform. The source code, [this](https://github.com/rpstreef/openapi-node-example) repo, will be deployed automatically via AWS CodePipeline. By default, it's configured to automatically deploy at every push to the master branch.
 
 Check the companion articles series '_OpenAPI_' on [dev.to](https://dev.to/rolfstreefkerk/openapi-with-terraform-on-aws-api-gateway-17je).
-
-Check the NodeJS source code repo [here](https://github.com/rpstreef/openapi-node-example)
 
 # Get started
 
