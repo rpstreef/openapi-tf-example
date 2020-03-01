@@ -4,12 +4,9 @@
   "description": "OpenAPI example with Terraform",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "validate": "node .\\node\\cmd\\openapi-validate.js services/api/example.yml",
-    "convert": "node .\\node\\cmd\\openapi-to-jsonschema.js services/api/example.yml node/src/schema/example.json",
-    "dev-full": "gulp full --env dev",
+    "validate": "node .\\cmd\\openapi-validate.js services/api/example.yml",
+    "convert": "node .\\cmd\\openapi-to-jsonschema.js services/api/example.yml node/src/schema/example.json",
     "dev-infra": "gulp infra --env dev",
-    "dev-src": "gulp src --env dev",
     "dev-init": "gulp init --env dev"
   },
   "repository": {
@@ -31,12 +28,10 @@
   "devDependencies": {
     "openapi-enforcer": "^1.8.2",
     "openapi2schema": "^0.5.0",
-    "del": "^4.1.0",
     "gulp": "^4.0.0",
     "gulp-if": "^2.0.2",
     "gulp-install": "^1.1.0",
     "gulp-shell": "^0.7.0",
-    "gulp-zip": "^4.2.0",
     "minimist": "^1.2.0"
   }
 }
