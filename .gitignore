@@ -33,7 +33,3 @@ override.tf.json
 
 # Node ignores
 node_modules
-
-# distribution files
-env/dev/dist/example/*
-env/dev/dist/layer/*
