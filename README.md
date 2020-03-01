@@ -1,6 +1,10 @@
 # OpenAPI with AWS API Gateway, Lambda, Cognito, SNS and CloudWatch logs
 
-Check the companion article on [dev.to](https://dev.to/rolfstreefkerk/openapi-with-terraform-on-aws-api-gateway-17je).
+This repo only deploys the infrastructure via AWS CodePipeline, it will deploy the source code repo separately. By default, it's configured to automatically deploy at every push to the master branch.
+
+Check the companion articles series '_OpenAPI_' on [dev.to](https://dev.to/rolfstreefkerk/openapi-with-terraform-on-aws-api-gateway-17je).
+
+Check the NodeJS source code repo [here](https://github.com/rpstreef/openapi-node-example)
 
 # Get started
 
@@ -12,6 +16,7 @@ Check the companion article on [dev.to](https://dev.to/rolfstreefkerk/openapi-wi
 - Create a free AWS account (requires credit card) [here](https://aws.amazon.com/)
 - Finally, download the [AWS CLI tool](https://aws.amazon.com/cli/) 
 - Setup your AWS local profile, see [this](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html) guide how it's done.
+- Manually setup an AWS S3 Bucket for Terraform state storage.
 
 ## To get the API running
 If you meet all the pre-requisites, do the following
@@ -25,7 +30,8 @@ If you meet all the pre-requisites, do the following
 - Run ``` npm install ``` and then execute ``` npm run dev-init ```, this will:
   - Initialize the Terraform project for the 'dev' environment, and synchronize the state with the cloud stored .tfstate file.
   - If you run it a second time, it will fail on the workspace creation, this is not an issue (the workspace already exists)
-- Run ```npm run dev-full``` to package the source code (locally in ```./env/dev/dist```) and to prepare the deployment to your AWS account.
+- Run ```npm run dev-infra``` to prepare the deployment to your AWS account.
+  - Note: this [repo](https://github.com/rpstreef/openapi-node-example) contains the node source code that the CodePipeline will deploy to the AWS Lambda and Lambda-layer.
   - Confirm with ```yes``` to deploy, anything else will cancel the deployment
 
 See my full guide on dev.to for more information about this project
@@ -49,6 +55,6 @@ The following services are deployed with Terraform;
 - AWS Lambda & Lambda Layer
 - AWS IAM
 - (Added) CloudWatch Alarms, costs will be incurred for enabling Detailed Monitoring for API Gateway (!)
-
-The following you have to create manually:
-- AWS S3 Bucket for Terraform state storage
+- (Added) AWS CodePipeline, and CodeBuild with Github as source repository. There's a free tier for:
+  - [CodeBuild](https://aws.amazon.com/codebuild/pricing/), 100 build minutes of ```build.general1.small``` per month.
+  - [AWS CodePipeline](https://aws.amazon.com/codepipeline/pricing/): 1 free pipeline active per month. 
