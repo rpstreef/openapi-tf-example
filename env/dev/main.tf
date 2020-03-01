@@ -13,7 +13,7 @@ locals {
 }
 
 # -----------------------------------------------------------------------------
-# Cognito Identity
+# Module: Cognito Identity
 # -----------------------------------------------------------------------------
 module "cognito" {
   source = "github.com/rpstreef/tf-cognito?ref=v1.0"
@@ -42,23 +42,46 @@ module "cognito" {
 }
 
 # -----------------------------------------------------------------------------
-# Lambda Layer
+# Resource: Lambda Layer
 # -----------------------------------------------------------------------------
-module "lambda-layer" {
-  source = "github.com/rpstreef/tf-lambda-layer?ref=v1.0"
+data "archive_file" "dummy" {
+  type        = "zip"
+  output_path = "${path.module}/dummy.zip"
+
+  source_content          = "dummy"
+  source_content_filename = "dummy.txt"
+}
+
+resource "aws_lambda_layer_version" "_" {
+  filename   = data.archive_file.dummy.output_path
+  layer_name = "${local.resource_name_prefix}-lambda-layer"
+
+  compatible_runtimes = ["nodejs10.x", "nodejs12.x"]
+
+  description = "OpenAPI Lambda Layer"
+}
+
+# -----------------------------------------------------------------------------
+# Module: CI / CD
+# -----------------------------------------------------------------------------
+module "cicd" {
+  source = "github.com/rpstreef/tf-cicd-lambda"
 
   resource_tag_name = var.resource_tag_name
   namespace         = var.namespace
   region            = var.region
 
-  name           = local.lambda_layer_name
-  zip_name       = local.lambda_layer_zip_name
-  description    = local.lambda_layer_description
-  dist_file_path = local.dist_file_path
+  github_token        = var.github_token
+  github_owner        = var.github_owner
+  github_repo         = var.github_repo
+  poll_source_changes = var.poll_source_changes
+
+  lambda_layer_name     = aws_lambda_layer_version._.layer_name
+  lambda_function_names = "${module.identity.lambda_name},${module.user.lambda_names}"
 }
 
 # -----------------------------------------------------------------------------
-# API Gateway
+# Module: API Gateway
 # -----------------------------------------------------------------------------
 module "apigateway" {
   source            = "github.com/rpstreef/tf-apigateway?ref=v1.2"
@@ -93,7 +116,7 @@ module "apigateway" {
 }
 
 # -----------------------------------------------------------------------------
-# Lambda services
+#  Modules: Lambda services
 # -----------------------------------------------------------------------------
 module "identity" {
   source = "../../services/identity"
@@ -102,9 +125,7 @@ module "identity" {
   namespace         = var.namespace
   region            = var.region
 
-  lambda_layer_arn = module.lambda-layer.arn
-  lambda_zip_name  = local.lambda_zip_name
-  dist_path        = local.dist_file_path
+  lambda_layer_arn = aws_lambda_layer_version._.arn
 
   lambda_memory_size = var.lambda_identity_memory_size
   lambda_timeout     = var.lambda_identity_timeout
@@ -126,9 +147,7 @@ module "user" {
   namespace         = var.namespace
   region            = var.region
 
-  lambda_layer_arn = module.lambda-layer.arn
-  lambda_zip_name  = local.lambda_zip_name
-  dist_path        = local.dist_file_path
+  lambda_layer_arn = aws_lambda_layer_version._.arn
 
   lambda_memory_size = var.lambda_user_memory_size
   lambda_timeout     = var.lambda_user_timeout

@@ -29,6 +29,12 @@ api_metrics_enabled        = true
 api_logging_level          = "ERROR"
 xray_tracing_enabled       = true
 
+# Github
+# Prompt for github_token, do not store in Source repo
+github_owner        = "rpstreef"
+github_repo         = "openapi-node-example"
+poll_source_changes = "true"
+
 # CloudWatch API Gateway
 api_resources = {
   "/identity/authenticate" = "POST",

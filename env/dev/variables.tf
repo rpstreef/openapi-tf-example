@@ -100,3 +100,27 @@ variable "xray_tracing_enabled" {
   type        = bool
   default     = false
 }
+
+# -----------------------------------------------------------------------------
+# Variables: CodePipeline
+# -----------------------------------------------------------------------------
+variable "github_token" {
+  type        = string
+  description = "Github OAuth token"
+}
+
+variable "github_owner" {
+  type        = string
+  description = "Github username"
+}
+
+variable "github_repo" {
+  type        = string
+  description = "Github repository name"
+}
+
+variable "poll_source_changes" {
+  type        = string
+  default     = "false"
+  description = "Periodically check the location of your source content and run the pipeline if changes are detected"
+}

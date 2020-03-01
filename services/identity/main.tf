@@ -28,7 +28,7 @@ module "iam" {
 # Module: Lambda
 # -----------------------------------------------------------------------------
 module "lambda" {
-  source = "github.com/rpstreef/tf-lambda?ref=v1.1"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.3.3"
 
   namespace         = var.namespace
   region            = var.region
@@ -36,15 +36,10 @@ module "lambda" {
 
   lambda_function_name = local.lambda_function_name
   lambda_role_arn      = module.iam.role_arn
-  lambda_filename      = "${var.dist_path}/${var.lambda_zip_name}"
   lambda_layer_arn     = var.lambda_layer_arn
 
   lambda_memory_size = var.lambda_memory_size
   lambda_timeout     = var.lambda_timeout
-
-  distribution_file_name = var.lambda_zip_name
-
-  dist_path = var.dist_path
 
   lambda_environment_variables = {
     NAMESPACE = var.namespace

@@ -5,6 +5,8 @@ locals {
   lambda_function_receiver_name = "user_receiver"
 
   local_sns_topic_name = "user-topic"
+
+  lambda_names = "${module.lambda.name},${module.lambda_receiver.name}"
 }
 
 # -----------------------------------------------------------------------------
@@ -32,7 +34,7 @@ module "iam" {
 # Module: Lambda
 # -----------------------------------------------------------------------------
 module "lambda" {
-  source = "github.com/rpstreef/tf-lambda?ref=v1.1"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.3.3"
 
   namespace         = var.namespace
   region            = var.region
@@ -40,15 +42,10 @@ module "lambda" {
 
   lambda_function_name = local.lambda_function_name
   lambda_role_arn      = module.iam.role_arn
-  lambda_filename      = "${var.dist_path}/${var.lambda_zip_name}"
   lambda_layer_arn     = var.lambda_layer_arn
 
   lambda_memory_size = var.lambda_memory_size
   lambda_timeout     = var.lambda_timeout
-
-  distribution_file_name = var.lambda_zip_name
-
-  dist_path = var.dist_path
 
   lambda_environment_variables = {
     NAMESPACE = var.namespace
@@ -70,7 +67,7 @@ module "lambda" {
 
 
 module "lambda_receiver" {
-  source = "github.com/rpstreef/tf-lambda?ref=v1.1"
+  source = "github.com/rpstreef/tf-lambda?ref=v1.3.3"
 
   namespace         = var.namespace
   region            = var.region
@@ -78,15 +75,10 @@ module "lambda_receiver" {
 
   lambda_function_name = local.lambda_function_receiver_name
   lambda_role_arn      = module.iam.role_arn
-  lambda_filename      = "${var.dist_path}/${var.lambda_zip_name}"
   lambda_layer_arn     = var.lambda_layer_arn
 
   lambda_memory_size = var.lambda_memory_size
   lambda_timeout     = var.lambda_timeout
-
-  distribution_file_name = var.lambda_zip_name
-
-  dist_path = var.dist_path
 
   lambda_environment_variables = {
     NAMESPACE = var.namespace
@@ -95,13 +87,12 @@ module "lambda_receiver" {
     DEBUG_SAMPLE_RATE = var.debug_sample_rate
   }
 
-  create_deadLetterQueue_alarm = false
-  create_iteratorAge_alarm     = false
+  create_deadLetterQueue_alarm   = false
+  create_iteratorAge_alarm       = false
+  create_api_gateway_integration = false
 
-  api_gateway_permission = false
-
-  sns_topic_subscription = true
-  sns_topic_arn          = module.sns.sns_topic_arn_lambda
+  create_sns_topic_subscription = true
+  sns_topic_arn                 = module.sns.sns_topic_arn_lambda
 }
 
 # -----------------------------------------------------------------------------
