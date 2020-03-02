@@ -84,7 +84,7 @@ module "cicd" {
 # Module: API Gateway
 # -----------------------------------------------------------------------------
 module "apigateway" {
-  source            = "github.com/rpstreef/tf-apigateway?ref=v1.2"
+  source            = "github.com/rpstreef/tf-apigateway?ref=v1.3.1"
   resource_tag_name = var.resource_tag_name
   namespace         = var.namespace
   region            = var.region
@@ -108,9 +108,6 @@ module "apigateway" {
   }
 
   xray_tracing_enabled = var.xray_tracing_enabled
-
-  lambda_zip_name = local.lambda_zip_name
-  dist_file_path  = local.dist_file_path
 
   resources = var.api_resources
 }
