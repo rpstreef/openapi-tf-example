@@ -4,8 +4,6 @@
   "description": "OpenAPI example with Terraform",
   "main": "index.js",
   "scripts": {
-    "validate": "node .\\cmd\\openapi-validate.js services/api/example.yml",
-    "convert": "node .\\cmd\\openapi-to-jsonschema.js services/api/example.yml node/src/schema/example.json",
     "dev-infra": "gulp infra --env dev",
     "dev-init": "gulp init --env dev"
   },
@@ -26,8 +24,6 @@
   "homepage": "https://github.com/rpstreef/openapi-tf-example#readme",
   "dependencies": {},
   "devDependencies": {
-    "openapi-enforcer": "^1.8.2",
-    "openapi2schema": "^0.5.0",
     "gulp": "^4.0.0",
     "gulp-if": "^2.0.2",
     "gulp-install": "^1.1.0",
