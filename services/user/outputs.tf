@@ -1,7 +1,7 @@
-output "lambda_arn" {
-  value = module.lambda.arn
+output "iam_arn" {
+  value = module.iam.role_arn
 }
 
-output "lambda_names" {
-  value = local.lambda_names
+output "sns_topic_arn" {
+  value = module.sns.sns_topic_arn_lambda
 }

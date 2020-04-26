@@ -1,7 +1,3 @@
-output "lambda_arn" {
-  value = module.lambda.arn
-}
-
-output "lambda_name" {
-  value = module.lambda.name
+output "iam_arn" {
+  value = module.iam.role_arn
 }

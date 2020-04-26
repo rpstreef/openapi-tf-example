@@ -23,36 +23,3 @@ module "iam" {
     cognito_user_pool_arn = var.cognito_user_pool_arn
   }
 }
-
-# -----------------------------------------------------------------------------
-# Module: Lambda
-# -----------------------------------------------------------------------------
-module "lambda" {
-  source = "github.com/rpstreef/tf-lambda?ref=v1.3.3"
-
-  namespace         = var.namespace
-  region            = var.region
-  resource_tag_name = var.resource_tag_name
-
-  lambda_function_name = local.lambda_function_name
-  lambda_role_arn      = module.iam.role_arn
-  lambda_layer_arn     = var.lambda_layer_arn
-
-  lambda_memory_size = var.lambda_memory_size
-  lambda_timeout     = var.lambda_timeout
-
-  lambda_environment_variables = {
-    NAMESPACE = var.namespace
-    REGION    = var.region
-
-    COGNITO_USER_POOL_CLIENT_ID = var.cognito_user_pool_client_id
-    COGNITO_USER_POOL_ID        = var.cognito_user_pool_id
-
-    DEBUG_SAMPLE_RATE = var.debug_sample_rate
-  }
-
-  create_deadLetterQueue_alarm = false
-  create_iteratorAge_alarm     = false
-
-  api_gateway_rest_api_id = var.api_gateway_rest_api_id
-}
