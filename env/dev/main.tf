@@ -68,7 +68,7 @@ module "user" {
 }
 
 module "cloudwatch_alarms_apigateway" {
-  source = "github.com/rpstreef/terraform-aws-cloudwatch-alarms"
+  source = "github.com/rpstreef/terraform-aws-cloudwatch-alarms?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region

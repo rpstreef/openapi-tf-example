@@ -51,7 +51,7 @@ resource "aws_lambda_permission" "_" {
 }
 
 module "cloudwatch_alarms_user" {
-  source = "github.com/rpstreef/terraform-aws-cloudwatch-alarms"
+  source = "github.com/rpstreef/terraform-aws-cloudwatch-alarms?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region
@@ -79,7 +79,7 @@ module "sns" {
 }
 
 module "cloudwatch_alarms_user_receiver" {
-  source = "github.com/rpstreef/terraform-aws-cloudwatch-alarms"
+  source = "github.com/rpstreef/terraform-aws-cloudwatch-alarms?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region
