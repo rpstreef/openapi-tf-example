@@ -53,3 +53,39 @@ variable "poll_source_changes" {
   default     = "false"
   description = "Periodically check the location of your source content and run the pipeline if changes are detected"
 }
+
+# -----------------------------------------------------------------------------
+# Variables: Lambda
+# -----------------------------------------------------------------------------
+variable "lambda_function_userReceiver_arn" {
+  description = "Lambda function User ARN"
+}
+
+variable "lambda_function_user_arn" {
+  description = "Lambda function User Receiver ARN"
+}
+
+variable "lambda_function_identity_arn" {
+  description = "Lambda function Identity ARN"
+}
+
+# -----------------------------------------------------------------------------
+# Variables: API Gateway
+# -----------------------------------------------------------------------------
+variable "api_gateway_rest_api_id" {
+  description = "API Gateway ID"
+}
+
+variable "api_resources" {
+  description = "API Resources that require Cloudwatch monitoring"
+}
+
+variable "api_name" {
+  description = "API Gateway Name"
+  type        = string
+}
+
+variable "api_stage" {
+  description = "API Gateway stage"
+  type        = string
+}

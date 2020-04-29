@@ -15,7 +15,10 @@ github_owner        = "rpstreef"
 github_repo         = "openapi-node-example"
 poll_source_changes = "true"
 
-# CloudWatch API Gateway
+# API Gateway
+api_gateway_rest_api_id = "9qzcnpzu0m"
+api_name                = "openapi-example"
+api_stage               = "dev"
 api_resources = {
   "/identity/authenticate" = "POST",
   "/identity/register"     = "POST",
@@ -23,3 +26,8 @@ api_resources = {
   "/identity/verify"       = "POST",
   "/user"                  = "GET"
 }
+
+#Lambda
+lambda_function_user_arn         = "arn:aws:lambda:us-east-1:921906086636:function:dev-example-user"
+lambda_function_userReceiver_arn = "arn:aws:lambda:us-east-1:921906086636:function:dev-example-user-receiver"
+lambda_function_identity_arn     = "arn:aws:lambda:us-east-1:921906086636:function:dev-example-identity"

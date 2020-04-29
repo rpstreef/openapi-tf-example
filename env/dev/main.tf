@@ -46,6 +46,10 @@ module "identity" {
   region            = var.region
 
   cognito_user_pool_arn = module.cognito.cognito_user_pool_arn
+
+  lambda_function_identity_arn = var.lambda_function_identity_arn
+
+  api_gateway_rest_api_id = var.api_gateway_rest_api_id
 }
 
 module "user" {
@@ -56,4 +60,27 @@ module "user" {
   region            = var.region
 
   cognito_user_pool_arn = module.cognito.cognito_user_pool_arn
+
+  lambda_function_user_arn         = var.lambda_function_user_arn
+  lambda_function_userReceiver_arn = var.lambda_function_userReceiver_arn
+
+  api_gateway_rest_api_id = var.api_gateway_rest_api_id
+}
+
+module "cloudwatch_alarms_apigateway" {
+  source = "github.com/rpstreef/terraform-aws-cloudwatch-alarms"
+
+  namespace         = var.namespace
+  region            = var.region
+  resource_tag_name = var.resource_tag_name
+
+  create_errorRate_alarm       = false
+  create_throttleCount_alarm   = false
+  create_canary_alarm          = false
+  create_iteratorAge_alarm     = false
+  create_deadLetterQueue_alarm = false
+
+  api_name  = var.api_name
+  api_stage = var.api_stage
+  resources = var.api_resources
 }
