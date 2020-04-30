@@ -30,6 +30,12 @@ task('terraform-init', series(
   ]))
 )
 
+task('terraform-destroy', series(
+  shell.task([
+    'terraform destroy -var-file="' + tfvarFilePath + '"'
+  ])
+))
+
 exports.build = task('infra',
   series(
     task('terraform')
@@ -38,4 +44,9 @@ exports.build = task('infra',
 exports.build = task('init',
   series(
     task('terraform-init')
+  ))
+
+exports.build = task('destroy',
+  series(
+    task('terraform-destroy')
   ))

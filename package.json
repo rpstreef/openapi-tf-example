@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev-infra": "gulp infra --env dev",
-    "dev-init": "gulp init --env dev"
+    "dev-init": "gulp init --env dev",
+    "dev-destroy": "gulp destroy --env dev"
   },
   "repository": {
     "type": "git",
