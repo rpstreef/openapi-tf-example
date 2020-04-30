@@ -36,6 +36,26 @@ module "cognito" {
 }
 
 # -----------------------------------------------------------------------------
+#  Modules: CodePipeline
+# -----------------------------------------------------------------------------
+module "codepipeline" {
+  source = "github.com/rpstreef/terraform-aws-codepipeline-sam"
+
+  resource_tag_name = var.resource_tag_name
+  namespace         = var.namespace
+  region            = var.region
+
+  github_token        = var.github_token
+  github_owner        = var.github_owner
+  github_repo         = var.github_repo
+  poll_source_changes = var.poll_source_changes
+
+  build_image = "aws/codebuild/standard:4.0"
+
+  stack_name = var.stack_name
+}
+
+# -----------------------------------------------------------------------------
 #  Modules: Lambda services
 # -----------------------------------------------------------------------------
 module "identity" {

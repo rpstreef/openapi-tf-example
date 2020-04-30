@@ -11,6 +11,7 @@ cognito_identity_pool_provider = "providers"
 
 # Github
 # Prompt for github_token, do not store in Source repo
+stack_name          = "sam-app"
 github_owner        = "rpstreef"
 github_repo         = "openapi-node-example"
 poll_source_changes = "true"

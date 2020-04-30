@@ -33,6 +33,11 @@ variable "cognito_identity_pool_provider" {
 # -----------------------------------------------------------------------------
 # Variables: CodePipeline
 # -----------------------------------------------------------------------------
+variable "stack_name" {
+  type        = string
+  description = "AWS SAM stack name"
+}
+
 variable "github_token" {
   type        = string
   description = "Github OAuth token"
