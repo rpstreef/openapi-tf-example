@@ -10,7 +10,7 @@ locals {
 # Module: Cognito Identity
 # -----------------------------------------------------------------------------
 module "cognito" {
-  source = "github.com/rpstreef/tf-cognito?ref=v1.0"
+  source = "github.com/rpstreef/tf-cognito?ref=v1.1"
 
   namespace         = var.namespace
   resource_tag_name = var.resource_tag_name
@@ -39,7 +39,7 @@ module "cognito" {
 #  Modules: CodePipeline
 # -----------------------------------------------------------------------------
 module "codepipeline" {
-  source = "github.com/rpstreef/terraform-aws-codepipeline-sam"
+  source = "github.com/rpstreef/terraform-aws-codepipeline-sam?ref=v1.0"
 
   resource_tag_name = var.resource_tag_name
   namespace         = var.namespace
