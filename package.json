@@ -8,7 +8,7 @@
     "dev-init": "gulp init --env dev",
     "dev-destroy": "gulp destroy --env dev",
     "dev-output": "gulp output --env dev",
-    "dev-output-sam": "aws cloudformation --region us-east-1 describe-stacks --stack-name sam-app --profile multithreadlabs-dev"
+    "dev-output-sam": "aws cloudformation --region us-east-1 describe-stacks --stack-name dev-example-sam-app --profile multithreadlabs-dev"
   },
   "repository": {
     "type": "git",
