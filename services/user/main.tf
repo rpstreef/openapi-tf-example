@@ -16,7 +16,7 @@ data "aws_caller_identity" "_" {}
 # Module: IAM role
 # -----------------------------------------------------------------------------
 module "iam" {
-  source = "github.com/rpstreef/tf-iam?ref=v1.0"
+  source = "github.com/rpstreef/tf-iam?ref=v1.1"
 
   namespace         = var.namespace
   region            = var.region
