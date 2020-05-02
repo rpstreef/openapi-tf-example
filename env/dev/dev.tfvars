@@ -10,7 +10,7 @@ cognito_identity_pool_name     = "users"
 cognito_identity_pool_provider = "providers"
 
 # AWS SAM
-stack_name = "sam-app"
+stack_name = "dev-example-sam-app"
 
 # Github
 # Prompt for github_token, do not store in Source repo
@@ -19,8 +19,8 @@ github_repo         = "openapi-node-example"
 poll_source_changes = "true"
 
 # API Gateway
-api_gateway_rest_api_id = "9qzcnpzu0m"
-api_name                = "openapi-example"
+api_gateway_rest_api_id = "unknown"         # !Importan: Set after AWS SAM is deployed
+api_name                = "dev-example-api"
 api_stage               = "dev"
 api_resources = {
   "/identity/authenticate" = "POST",
