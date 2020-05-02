@@ -6,7 +6,8 @@
   "scripts": {
     "dev-infra": "gulp infra --env dev",
     "dev-init": "gulp init --env dev",
-    "dev-destroy": "gulp destroy --env dev"
+    "dev-destroy": "gulp destroy --env dev",
+    "dev-output": "gulp output --env dev"
   },
   "repository": {
     "type": "git",
