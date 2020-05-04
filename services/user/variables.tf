@@ -14,26 +14,49 @@ variable "resource_tag_name" {
 }
 
 # -----------------------------------------------------------------------------
-# Variables: Cognito
-# -----------------------------------------------------------------------------
-variable "cognito_user_pool_arn" {
-  description = "Cognito user pool ARN"
-}
-
-# -----------------------------------------------------------------------------
 # Variables: Lambda
 # -----------------------------------------------------------------------------
-variable "lambda_function_userReceiver_arn" {
-  description = "Lambda function User ARN"
+variable "lambda_layer_arn" {
+  description = "Lambda layer ARN shared code"
 }
 
-variable "lambda_function_user_arn" {
-  description = "Lambda function User Receiver ARN"
+variable "lambda_timeout" {
+  description = "Timeout in seconds"
+}
+
+variable "lambda_memory_size" {
+  description = "Allocated memory (and indirectly CPU power)"
+}
+
+variable "debug_sample_rate" {
+  description = "Productive use, how many percentage of logs will be set to Debug"
+  type        = number
 }
 
 # -----------------------------------------------------------------------------
 # Variables: API Gateway
 # -----------------------------------------------------------------------------
+
+variable "api_gateway_deployment_execution_arn" {
+  description = "API Gateway deployment execution ARN"
+}
+
 variable "api_gateway_rest_api_id" {
-  description = "API Gateway ID"
+  description = "API Gateway REST API identifier"
+}
+
+# -----------------------------------------------------------------------------
+# Variables: Cognito
+# -----------------------------------------------------------------------------
+
+variable "cognito_user_pool_arn" {
+  description = "Cognito user pool ARN"
+}
+
+variable "cognito_user_pool_id" {
+  
+}
+
+variable "cognito_user_pool_client_id" {
+  
 }

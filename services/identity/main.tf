@@ -5,15 +5,10 @@ locals {
 }
 
 # -----------------------------------------------------------------------------
-# Data: aws_caller_identity gets data from current AWS account
-# -----------------------------------------------------------------------------
-data "aws_caller_identity" "_" {}
-
-# -----------------------------------------------------------------------------
 # Module: IAM role
 # -----------------------------------------------------------------------------
 module "iam" {
-  source = "github.com/rpstreef/tf-iam?ref=v1.1"
+  source = "github.com/rpstreef/tf-iam?ref=v1.0"
 
   namespace         = var.namespace
   region            = var.region
@@ -30,32 +25,34 @@ module "iam" {
 }
 
 # -----------------------------------------------------------------------------
-# Module: Lambda Identity integration
+# Module: Lambda
 # -----------------------------------------------------------------------------
-resource "aws_lambda_permission" "_" {
-  principal     = "apigateway.amazonaws.com"
-  action        = "lambda:InvokeFunction"
-  function_name = var.lambda_function_identity_arn
-
-  source_arn = "arn:aws:execute-api:${
-    var.region
-    }:${
-    data.aws_caller_identity._.account_id
-    }:${
-    var.api_gateway_rest_api_id
-  }/*/*"
-}
-
-module "cloudwatch_alarms" {
-  source = "github.com/rpstreef/terraform-aws-cloudwatch-alarms?ref=v1.0"
+module "lambda" {
+  source = "github.com/rpstreef/tf-lambda?ref=v1.3.3"
 
   namespace         = var.namespace
   region            = var.region
   resource_tag_name = var.resource_tag_name
 
-  create_canary_alarm          = false
-  create_iteratorAge_alarm     = false
-  create_deadLetterQueue_alarm = false
+  lambda_function_name = local.lambda_function_name
+  lambda_role_arn      = module.iam.role_arn
+  lambda_layer_arn     = var.lambda_layer_arn
 
-  lambda_function_name = "${local.resource_name_prefix}-${local.lambda_function_name}"
+  lambda_memory_size = var.lambda_memory_size
+  lambda_timeout     = var.lambda_timeout
+
+  lambda_environment_variables = {
+    NAMESPACE = var.namespace
+    REGION    = var.region
+
+    COGNITO_USER_POOL_CLIENT_ID = var.cognito_user_pool_client_id
+    COGNITO_USER_POOL_ID        = var.cognito_user_pool_id
+
+    DEBUG_SAMPLE_RATE = var.debug_sample_rate
+  }
+
+  create_deadLetterQueue_alarm = false
+  create_iteratorAge_alarm     = false
+
+  api_gateway_rest_api_id = var.api_gateway_rest_api_id
 }

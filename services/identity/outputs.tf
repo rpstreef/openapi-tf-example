@@ -1,7 +1,7 @@
-output "iam_arn" {
-  value = module.iam.role_arn
+output "lambda_arn" {
+  value = module.lambda.arn
 }
 
-output "identity_canary_alarm_arn" {
-  value = module.cloudwatch_alarms.canary_alarm_arn
+output "lambda_name" {
+  value = module.lambda.name
 }

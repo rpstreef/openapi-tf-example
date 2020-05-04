@@ -9,8 +9,25 @@ resource_tag_name = "example"
 cognito_identity_pool_name     = "users"
 cognito_identity_pool_provider = "providers"
 
-# AWS SAM
-stack_name = "dev-example-sam-app"
+# Lambda & API endpoint configuration
+debug_sample_rate = 0.05
+
+# Identity (login/authentication)
+lambda_identity_memory_size = 256
+lambda_identity_timeout     = 4
+lambda_identity_api_timeout = 4000
+
+# User and Roles
+lambda_user_memory_size = 256
+lambda_user_timeout     = 4
+lambda_user_api_timeout = 4000
+
+# API Gateway
+api_throttling_rate_limit  = 5
+api_throttling_burst_limit = 10
+api_metrics_enabled        = true
+api_logging_level          = "ERROR"
+xray_tracing_enabled       = true
 
 # Github
 # Prompt for github_token, do not store in Source repo
@@ -18,10 +35,7 @@ github_owner        = "rpstreef"
 github_repo         = "openapi-node-example"
 poll_source_changes = "true"
 
-# API Gateway
-api_gateway_rest_api_id = "unknown"         # !Importan: Set after AWS SAM is deployed
-api_name                = "dev-example-api"
-api_stage               = "dev"
+# CloudWatch API Gateway
 api_resources = {
   "/identity/authenticate" = "POST",
   "/identity/register"     = "POST",
@@ -29,8 +43,3 @@ api_resources = {
   "/identity/verify"       = "POST",
   "/user"                  = "GET"
 }
-
-#Lambda
-lambda_function_user_arn         = "arn:aws:lambda:us-east-1:921906086636:function:dev-example-user"
-lambda_function_userReceiver_arn = "arn:aws:lambda:us-east-1:921906086636:function:dev-example-user-receiver"
-lambda_function_identity_arn     = "arn:aws:lambda:us-east-1:921906086636:function:dev-example-identity"

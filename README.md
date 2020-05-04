@@ -49,6 +49,8 @@ There are no costs associated with deploying any of this on AWS, there is [Free 
 
 The following services are deployed with Terraform;
 - AWS Cognito
+- AWS API Gateway
+- AWS Lambda & Lambda Layer
 - AWS IAM
 - (Added) CloudWatch Alarms, costs will be incurred for enabling Detailed Monitoring for API Gateway (!)
 - (Added) AWS CodePipeline, and CodeBuild with Github as source repository. There's a free tier for:
